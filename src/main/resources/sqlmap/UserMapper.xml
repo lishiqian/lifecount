@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lifecount.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.lifecount.o_po.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_nick" property="userNick" jdbcType="VARCHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="user_birthday" property="userBirthday" jdbcType="DATE" />
+    <result column="user_regist_date" property="userRegistDate" jdbcType="TIMESTAMP" />
+    <result column="user_regist_ip" property="userRegistIp" jdbcType="VARCHAR" />
+    <result column="user_gender" property="userGender" jdbcType="BIT" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="user_head_img" property="userHeadImg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, user_nick, user_email, user_pwd, user_birthday, user_regist_date, user_regist_ip, 
+    user_gender, user_phone, user_head_img
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lifecount.o_po.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lifecount.o_po.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lifecount.o_po.User" >
+    insert into user (user_id, user_nick, user_email, 
+      user_pwd, user_birthday, user_regist_date, 
+      user_regist_ip, user_gender, user_phone, 
+      user_head_img)
+    values (#{userId,jdbcType=INTEGER}, #{userNick,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{userPwd,jdbcType=VARCHAR}, #{userBirthday,jdbcType=DATE}, #{userRegistDate,jdbcType=TIMESTAMP}, 
+      #{userRegistIp,jdbcType=VARCHAR}, #{userGender,jdbcType=BIT}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userHeadImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lifecount.o_po.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userNick != null" >
+        user_nick,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="userPwd != null" >
+        user_pwd,
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday,
+      </if>
+      <if test="userRegistDate != null" >
+        user_regist_date,
+      </if>
+      <if test="userRegistIp != null" >
+        user_regist_ip,
+      </if>
+      <if test="userGender != null" >
+        user_gender,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="userHeadImg != null" >
+        user_head_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userNick != null" >
+        #{userNick,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        #{userBirthday,jdbcType=DATE},
+      </if>
+      <if test="userRegistDate != null" >
+        #{userRegistDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userRegistIp != null" >
+        #{userRegistIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userGender != null" >
+        #{userGender,jdbcType=BIT},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadImg != null" >
+        #{userHeadImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lifecount.o_po.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userNick != null" >
+        user_nick = #{record.userNick,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userEmail != null" >
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPwd != null" >
+        user_pwd = #{record.userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userBirthday != null" >
+        user_birthday = #{record.userBirthday,jdbcType=DATE},
+      </if>
+      <if test="record.userRegistDate != null" >
+        user_regist_date = #{record.userRegistDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userRegistIp != null" >
+        user_regist_ip = #{record.userRegistIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userGender != null" >
+        user_gender = #{record.userGender,jdbcType=BIT},
+      </if>
+      <if test="record.userPhone != null" >
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userHeadImg != null" >
+        user_head_img = #{record.userHeadImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      user_nick = #{record.userNick,jdbcType=VARCHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      user_pwd = #{record.userPwd,jdbcType=VARCHAR},
+      user_birthday = #{record.userBirthday,jdbcType=DATE},
+      user_regist_date = #{record.userRegistDate,jdbcType=TIMESTAMP},
+      user_regist_ip = #{record.userRegistIp,jdbcType=VARCHAR},
+      user_gender = #{record.userGender,jdbcType=BIT},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_head_img = #{record.userHeadImg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lifecount.o_po.User" >
+    update user
+    <set >
+      <if test="userNick != null" >
+        user_nick = #{userNick,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday = #{userBirthday,jdbcType=DATE},
+      </if>
+      <if test="userRegistDate != null" >
+        user_regist_date = #{userRegistDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userRegistIp != null" >
+        user_regist_ip = #{userRegistIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userGender != null" >
+        user_gender = #{userGender,jdbcType=BIT},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadImg != null" >
+        user_head_img = #{userHeadImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lifecount.o_po.User" >
+    update user
+    set user_nick = #{userNick,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_birthday = #{userBirthday,jdbcType=DATE},
+      user_regist_date = #{userRegistDate,jdbcType=TIMESTAMP},
+      user_regist_ip = #{userRegistIp,jdbcType=VARCHAR},
+      user_gender = #{userGender,jdbcType=BIT},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_head_img = #{userHeadImg,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
