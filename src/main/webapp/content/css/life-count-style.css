@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.title{
+    font-size: 5em;
+    font-family: 宋体;
+    text-align: center;
+    padding: 20px;
+    background: #eeeeee;
+    border-bottom: 1px solid #555555;
+    margin: 0px;
+}
+
+.form-item{
+    font-size: 2em;
+    font-family: 宋体;
+    padding: 30px;
+    background: #eeeeee;
+}
+
+.form-label{
+    margin: 10px;
+    font-size: 2em;
+    color: #555555;
+    font-weight: bold;
+    display: block;
+}
+
+.form-input{
+    margin: auto 20px;
+    display: block;
+    width: 80%;
+    height:8em;
+    border:2px solid #ccc;
+}
+.form-input::placeholder{
+    font-size: 5em;
+    color: #ccc;
+    font-family: 宋体;
+}
